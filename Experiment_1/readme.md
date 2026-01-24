@@ -67,6 +67,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON Books TO Librarian;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Members TO Librarian;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Books_Issue TO Librarian;
 ```
+![Query Result](output/0.png)
 
 ## Data Manipulation
 
