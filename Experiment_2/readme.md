@@ -19,111 +19,91 @@ To understand and implement SQL SELECT queries using various clauses such as WHE
 
 ## Practical / Experimental Steps
 
-1. Open pgAdmin / SQL shell and connect to the PostgreSQL database.
-2. Create the Students table with appropriate columns and data types.
-3. Insert sample student records containing id, name, city, and marks.
-4. Use the COUNT() function with GROUP BY city to find the number of students in each city.
-5. Apply ORDER BY on the aggregated COUNT result to sort cities based on student count.
-6. Use the HAVING clause to filter cities having at least a specified number of students.
-7. Use the AVG() function with GROUP BY city to calculate the average marks of students in each city.
-8. Execute aggregation functions such as SUM(), MIN(), and MAX() to analyze student marks.
-9. Verify the output of each query to understand grouping and aggregation behavior in SQL.
+1. Start the system and log in to the computer.
+2. Open pgAdmin (PostgreSQL).
+3. Create or select the required database (e.g., lab_db).
+4. Create the EMPLOYEE table using the given schema.
+5. Insert sample data into the EMPLOYEE table.
+6. Execute the queries step-by-step according to the practical steps.
+7. Verify the output after each query execution.
+8. Capture screenshots of execution and results for record.
+9. Save the work and upload worksheet (Word + PDF) on GitHub.
 
 ## I / O Analysis
 
 ### Database Design
 
-#### Create Table: Students
+#### Create Table: employee
 ```sql
-CREATE TABLE Students (
-    id NUMERIC(10,0) PRIMARY KEY,
-    name VARCHAR(50),
-    city VARCHAR(30),
-    marks NUMERIC(10,0)
+CREATE TABLE employee (
+    emp_id       INT PRIMARY KEY,
+    emp_name     VARCHAR(50),
+    department   VARCHAR(50),
+    salary       NUMERIC(10,2),
+    joining_date DATE
 );
 ```
 
 #### Insert Records
 ```sql
-INSERT INTO Students VALUES (1, 'Aman', 'Mohali', 85);
-INSERT INTO Students VALUES (2, 'Rohit', 'Mohali', 78);
-INSERT INTO Students VALUES (3, 'Neha', 'Mohali', 92);
-INSERT INTO Students VALUES (4, 'Simran', 'Amritsar', 88);
-INSERT INTO Students VALUES (5, 'Karan', 'Amritsar', 75);
+INSERT INTO employee (emp_id, emp_name, department, salary, joining_date) VALUES
+(101, 'Amit Sharma',   'IT',        45000, '2022-01-10'),
+(102, 'Neha Verma',    'HR',        22000, '2021-03-15'),
+(103, 'Rahul Singh',   'IT',        30000, '2020-06-20'),
+(104, 'Priya Mehta',   'Finance',   55000, '2019-09-05'),
+(105, 'Karan Gupta',   'HR',        18000, '2023-02-12'),
+(106, 'Sneha Kapoor',  'Finance',   28000, '2020-11-25'),
+(107, 'Rohit Jain',    'Sales',     35000, '2021-07-30'),
+(108, 'Ananya Joshi',  'Sales',     15000, '2022-12-01'),
+(109, 'Vikram Rao',    'IT',        25000, '2022-04-18');
 ```
-![Query Result](output/1.png)
+![QUERY](output/0.png)
+
+## Display the Table
+```sql
+SELECT * FROM employee;
+```
+![QUERY](output/1.png)
 
 ## Group By and Aggregate Queries
+```sql
+SELECT department, AVG(salary) AS avg_salary
+FROM employee
+GROUP BY department;
+```
+![QUERY](output/2.png)
 
 ```sql
-SELECT CITY, COUNT(*) AS COUNT_STUDENTS
-FROM STUDENTS
-GROUP BY CITY;
+SELECT department, AVG(salary) AS avg_salary
+FROM employee
+WHERE salary > 20000
+GROUP BY department;
 ```
-![Query Result](output/2.png)
+![QUERY](output/3.png)
 
 ```sql
-SELECT CITY, COUNT(ID) AS COUNT_STUDENTS
-FROM STUDENTS
-GROUP BY CITY;
+SELECT department, AVG(salary) AS avg_salary
+FROM employee
+WHERE salary > 20000
+GROUP BY department
+HAVING AVG(salary) > 30000;
 ```
-![Query Result](output/3.png)
+![QUERY](output/4.png)
 
 ```sql
-SELECT CITY, COUNT(ID) AS COUNT_STUDENTS
-FROM STUDENTS
-GROUP BY CITY
-ORDER BY COUNT_STUDENTS ASC;
+SELECT department, AVG(salary) AS avg_salary
+FROM employee
+WHERE salary > 20000
+GROUP BY department
+HAVING AVG(salary) > 30000
+ORDER BY avg_salary DESC;
 ```
-![Query Result](output/4.png)
-
-```sql
-SELECT CITY, COUNT(*) AS COUNT_STUDENTS
-FROM STUDENTS
-GROUP BY CITY
-ORDER BY COUNT(*) ASC;
-```
-![Query Result](output/5.png)
-
-```sql
-SELECT CITY, COUNT(ID) AS COUNT_STUDENTS
-FROM STUDENTS
-GROUP BY CITY
-HAVING COUNT(ID) >= 3;
-```
-![Query Result](output/6.png)
-
-```sql
-SELECT CITY, AVG(MARKS)::NUMERIC(10,2) AS AVERAGE_MARKS
-FROM STUDENTS
-GROUP BY CITY;
-```
-![Query Result](output/7.png)
-
-```sql
-SELECT CITY, SUM(MARKS)::NUMERIC(10,2) AS SUBMISSION_MARKS
-FROM STUDENTS
-GROUP BY CITY;
-```
-![Query Result](output/8.png)
-
-```sql
-SELECT CITY, MIN(MARKS)::NUMERIC(10,2) AS MINIMUM_MARKS
-FROM STUDENTS
-GROUP BY CITY;
-```
-![Query Result](output/9.png)
-
-```sql
-SELECT CITY, MAX(MARKS)::NUMERIC(10,2) AS MAXIMUM_MARKS
-FROM STUDENTS
-GROUP BY CITY;
-```
-![Query Result](output/10.png)
+![QUERY](output/5.png)
 
 ## Learning Outcomes
-- Understood database table creation using appropriate data types and primary keys.
-- Gained practical knowledge of SQL aggregate functions such as COUNT, SUM, AVG, MIN, and MAX.
-- Learned to use GROUP BY and HAVING clauses for grouped data filtering.
-- Developed skills to analyze and summarize data using ORDER BY.
-- Acquired hands-on experience in writing and executing SQL SELECT queries in PostgreSQL.
+- Understood the syntax and usage of SQL SELECT statements.
+- Gained practical knowledge of WHERE clause for filtering rows.
+- Learned grouping operations using GROUP BY clause.
+- Applied HAVING clause to filter grouped results.
+- Sorted query outputs using ORDER BY clause.
+- Got hands-on experience in PostgreSQL execution using PgAdmin.
