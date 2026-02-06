@@ -57,7 +57,7 @@ END;
 /
 
 ```
-![Query Result](Output/0.png)
+![Query Result](output/0.png)
 
 ## Learning Outcomes
 
